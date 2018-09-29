@@ -1,3 +1,5 @@
+*.solution.json
+
 # Created by https://www.gitignore.io/api/vim,data,emacs,eclipse,database,compressed,jetbrains+iml
 
 ### Compressed ###
