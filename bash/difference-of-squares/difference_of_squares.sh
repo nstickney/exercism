@@ -26,16 +26,19 @@ sum_of_squares() {
 }
 
 difference() {
+	local sq
 	sq=$(square_of_sum "$1")
+	local sm
 	sm=$(sum_of_squares "$1")
 	echo $((sq-sm))
 }
 
 main() {
+	local num=${2#-}
 	case $1 in
-		"square_of_sum")  square_of_sum "$2";; 
-		"sum_of_squares") sum_of_squares "$2";;
-		"difference")     difference "$2";;
+		"square_of_sum")  square_of_sum "$num";; 
+		"sum_of_squares") sum_of_squares "$num";;
+		"difference")     difference "$num";;
 	esac
 }
 
