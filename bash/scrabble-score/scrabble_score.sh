@@ -6,33 +6,17 @@ trap 'echo "Aborting due to errexit on line $LINENO. Exit code: $?" >&2' ERR
 IFS=$'\n\t'
 
 main() {
-	word=$1
-
-	local ones=AaEeIiOoUuLlNnRrSsTt
-	local twos=DdGg
-	local threes=BbCcMmPp
-	local fours=FfHhVvWwYy
-	local fives=Kk
-	local eights=JjXx
-	local tens=QqZz
-
 	local score=0
-	for (( i=0; i<${#word}; i++ )); do
-		if [[ $ones = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 1 ))
-		elif [[ $twos = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 2 ))
-		elif [[ $threes = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 3))
-		elif [[ $fours = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 4 ))
-		elif [[ $fives = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 5 ))
-		elif [[ $eights = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 8 ))
-		elif [[ $tens = *"${word:$i:1}"* ]]; then
-			score=$(( "$score" + 10 ))
-		fi
+	for (( i=0; i<${#1}; i++ )); do
+		case "${1:$i:1}" in
+			[AaEeIiOoUuLlNnRrSsTt]) ((score+=1));;
+			[FfHhVvWwYy])           ((score+=4));;
+			[BbCcMmPp])             ((score+=3));;
+			[DdGg])                 ((score+=2));;
+			[JjXx])                 ((score+=8));;
+			[QqZz])                 ((score+=10));;
+			[Kk])                   ((score+=5));;
+		esac
 	done
 	echo $score
 }
