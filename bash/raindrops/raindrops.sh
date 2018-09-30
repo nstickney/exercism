@@ -6,17 +6,16 @@ trap 'echo "Aborting due to errexit on line $LINENO. Exit code: $?" >&2' ERR
 IFS=$'\n\t'
 
 main() {
-	local FACTORS=("3" "5" "7")
-	local WORDS=("Pling" "Plang" "Plong")
+	local factors=(
+		["3"]="Pling"
+		["5"]="Plang"
+		["7"]="Plong"
+	)
 	local rain=""
-	local i=0
-	local length=${#FACTORS[@]}
-	while ((i < length)); do
-		(( "$1" % FACTORS[i] == 0 )) && rain+="${WORDS[i]}"
-		((i+=1))
+	for i in "${!factors[@]}"; do
+		(( "$1" % i == 0 )) && rain+="${factors[i]}"
 	done
-	[ "$rain" = "" ] && rain="$1"
-	echo "$rain"
+	echo "${rain:-$1}"
 }
 
 main "$@"
