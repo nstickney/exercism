@@ -8,73 +8,68 @@ __version__ = "0.1.0"
 __license__ = "Unlicense"
 
 
-from collections import Counter
 from sys import argv
 
 
+# Score dice based on face value:
+def sum_value(dice, value):
+    return dice.count(value) * value
+
+
 # Score categories
-ONES = "ONES"
-TWOS = "TWOS"
-THREES = "THREES"
-FOURS = "FOURS"
-FIVES = "FIVES"
-SIXES = "SIXES"
-FULL_HOUSE = "FULL HOUSE"
-FOUR_OF_A_KIND = "FOUR OF A KIND"
-LITTLE_STRAIGHT = "LITTLE STRAIGHT"
-BIG_STRAIGHT = "BIG STRAIGHT"
-CHOICE = "CHOICE"
-YACHT = "YACHT"
+def ONES(dice):
+    return sum_value(dice, 1)
+
+
+def TWOS(dice):
+    return sum_value(dice, 2)
+
+
+def THREES(dice):
+    return sum_value(dice, 3)
+
+
+def FOURS(dice):
+    return sum_value(dice, 4)
+
+
+def FIVES(dice):
+    return sum_value(dice, 5)
+
+
+def SIXES(dice):
+    return sum_value(dice, 6)
+
+
+def FULL_HOUSE(dice):
+    if len(set(dice)) == 2 and 2 <= dice.count(dice[0]) <= 3:
+        return sum(dice)
+    return 0
+
+
+def FOUR_OF_A_KIND(dice):
+    return 4 * sorted(dice)[2] if dice.count(sorted(dice)[2]) >= 4 else 0
+
+
+def LITTLE_STRAIGHT(dice):
+    return 30 if sorted(dice) == list(range(1, 6)) else 0
+
+
+def BIG_STRAIGHT(dice):
+    return 30 if sorted(dice) == list(range(2, 7)) else 0
+
+
+def CHOICE(dice):
+    return sum(dice)
+
+
+def YACHT(dice):
+    return 50 if all(i == dice[0] for i in dice) else 0
 
 
 def score(dice, category):
     """ Calculate the score for a set of dice for a given category in Yacht """
-    if category == ONES:
-        return dice.count(1)
-    if category == TWOS:
-        return 2 * dice.count(2)
-    if category == THREES:
-        return 3 * dice.count(3)
-    if category == FOURS:
-        return 4 * dice.count(4)
-    if category == FIVES:
-        return 5 * dice.count(5)
-    if category == SIXES:
-        return 6 * dice.count(6)
-    if category == FULL_HOUSE:
-        check = Counter(dice)
-        if len(check) == 2 and list(check.most_common()[0])[1] == 3:
-            return sum(int(i) for i in dice)
-        return 0
-    if category == FOUR_OF_A_KIND:
-        check = list(Counter(dice).most_common()[0])
-        if check[1] >= 4:
-            return 4 * check[0]
-        return 0
-    if category == LITTLE_STRAIGHT:
-        dice = sorted(dice)
-        for i in range(1, 5):
-            if dice[i] != dice[i - 1] + 1:
-                return 0
-        if dice[0] == 1:
-            return 30
-        return 0
-    if category == BIG_STRAIGHT:
-        dice = sorted(dice)
-        for i in range(1, 5):
-            if dice[i] != dice[i - 1] + 1:
-                return 0
-        if dice[0] == 2:
-            return 30
-        return 0
-    if category == CHOICE:
-        return sum(int(i) for i in dice)
-    if category == YACHT:
-        num = dice[0]
-        for i in dice:
-            if i != num:
-                return 0
-        return 50
+    return category(dice)
 
 
 if __name__ == "__main__":
@@ -82,4 +77,4 @@ if __name__ == "__main__":
              int(argv[5])]
     for i in [ONES, TWOS, THREES, FOURS, FIVES, SIXES, FULL_HOUSE,
               FOUR_OF_A_KIND, LITTLE_STRAIGHT, BIG_STRAIGHT, CHOICE, YACHT]:
-        print(i + ":", score(throw, i))
+        print(i.__name__ + ":" + " " * (15 - len(i.__name__)), score(throw, i))
