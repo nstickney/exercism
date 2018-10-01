@@ -8,14 +8,13 @@ __version__ = "0.1.0"
 __license__ = "Unlicense"
 
 
-import sys
+from sys import argv
 
 
 def to_rna(dna_strand):
     """ Calculate the RNA complement (per RNA transcription) of dna_strand """
-    dna_strand = dna_strand.replace("A", "U").replace("T", "A")
-    return dna_strand.replace("G", "X").replace("C", "G").replace("X", "C")
+    return dna_strand.translate(dna_strand.maketrans("GCTA", "CGAU"))
 
 
 if __name__ == "__main__":
-    print(to_rna(sys.argv[1]))
+    print(to_rna(argv[1]))
