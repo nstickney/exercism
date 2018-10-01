@@ -12,14 +12,12 @@ __license__ = "Unlicense"
 
 
 import sys
+from string import ascii_lowercase
 
 
 def is_pangram(string):
     """ Determines if a string is a pangram """
-    for i in range(65, 91, 1):
-        if chr(i) not in string and chr(i).lower() not in string:
-            return False
-    return True
+    return all(letter in string.lower() for letter in ascii_lowercase)
 
 
 if __name__ == "__main__":
