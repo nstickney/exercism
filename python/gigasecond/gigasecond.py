@@ -14,7 +14,7 @@ from sys import argv
 
 def add_gigasecond(birth_date):
     """ Calculate the moment when someone has lived for 10^9 seconds """
-    return birth_date + timedelta(seconds=1000000000)
+    return birth_date + timedelta(seconds=10 ** 9)
 
 
 if __name__ == "__main__":
