@@ -15,11 +15,7 @@ def distance(seq1, seq2):
     """ Calculate the Hamming difference between two DNA strands """
     if len(seq1) != len(seq2):
         raise ValueError("Unequal sequence lengths:", seq1, seq2)
-    dist = 0
-    for i, j in zip(seq1, seq2):
-        if i != j:
-            dist += 1
-    return dist
+    return sum(1 for i, j in zip(seq1, seq2) if i != j)
 
 
 if __name__ == "__main__":
