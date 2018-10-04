@@ -13,13 +13,7 @@ import sys
 
 def is_leap_year(year):
     """ Determine whether a year is a leap year or not """
-    if year % 4 == 0:
-        if year % 100 == 0:
-            if year % 400 == 0:
-                return True
-            return False
-        return True
-    return False
+    return (year % 400 == 0) or (year % 4 == 0 and not year % 100 == 0)
 
 
 if __name__ == "__main__":
