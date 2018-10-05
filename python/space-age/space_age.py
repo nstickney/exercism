@@ -12,38 +12,25 @@ from sys import argv
 
 
 class SpaceAge(object):
+
+    RATIOS = [(planet, ratio * 31557600) for planet, ratio in (
+        ('mercury',   0.2408467),
+        ('venus',     0.61519726),
+        ('earth',     1.0),
+        ('mars',      1.8808158),
+        ('jupiter',  11.862615),
+        ('saturn',   29.447498),
+        ('uranus',   84.016846),
+        ('neptune', 164.79132)
+    )]
+
     def __init__(self, seconds):
         self.seconds = seconds
+        for planet, ratio in self.RATIOS:
+            setattr(self, 'on_' + planet, self._orbits(ratio, seconds))
 
-    def calc_years(self):
-        return self.seconds / 31557600
-
-    def calc_orbits(self, ratio):
-        return round(self.calc_years() / ratio, 2)
-
-    def on_earth(self):
-        return self.calc_orbits(1)
-
-    def on_jupiter(self):
-        return self.calc_orbits(11.862615)
-
-    def on_mars(self):
-        return self.calc_orbits(1.8808158)
-
-    def on_mercury(self):
-        return self.calc_orbits(0.2408467)
-
-    def on_neptune(self):
-        return self.calc_orbits(164.79132)
-
-    def on_saturn(self):
-        return self.calc_orbits(29.447498)
-
-    def on_uranus(self):
-        return self.calc_orbits(84.016846)
-
-    def on_venus(self):
-        return self.calc_orbits(0.61519726)
+    def _orbits(self, ratio, seconds):
+        return lambda ratio = ratio: round(seconds / ratio, 2)
 
     def max_digits(self):
         return len(str(int(self.on_mercury())))
@@ -65,7 +52,7 @@ def main(seconds):
 
 def print_usage():
     print("Usage: python[3]", argv[0], "<seconds>")
-    print("    seconds: age in seconds")
+    print("    seconds: age in seconds (integer)")
     exit(1)
 
 
