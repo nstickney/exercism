@@ -6,11 +6,7 @@ trap 'echo "Aborting due to errexit on line $LINENO. Exit code: $?" >&2' ERR
 IFS=$'\n\t'
 
 main() {
-	printf 'One for %s, one for me.\n' "$1"
+	printf 'One for %s, one for me.\n' "${@:-you}"
 }
 
-if (( "$#" >= 1 )); then
-	main "$@"
-else
-	main "you"
-fi
+main "$@"
