@@ -4,7 +4,6 @@ Calculate the moment when someone has lived for 10^9 seconds.
 """
 
 __author__ = "Stick"
-__version__ = "0.1.0"
 __license__ = "Unlicense"
 
 

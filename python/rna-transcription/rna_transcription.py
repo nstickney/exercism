@@ -4,7 +4,6 @@ Given a DNA strand, return its RNA complement (per RNA transcription).
 """
 
 __author__ = "Stick"
-__version__ = "0.1.0"
 __license__ = "Unlicense"
 
 

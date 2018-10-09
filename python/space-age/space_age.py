@@ -4,7 +4,6 @@ Given an age in seconds, calculate how old someone would be on each planet
 """
 
 __author__ = "Stick"
-__version__ = "0.1.0"
 __license__ = "Unlicense"
 
 
