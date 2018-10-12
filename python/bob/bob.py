@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Determine whether a year is a leap year or not
+Have a conversation with a lackadaisical teenager.
 """
 
 __author__ = "Stick"
