@@ -14,7 +14,7 @@ print_usage() {
 	exit 1
 }
 
-# If called without exactly four arguments, print usage message
+# If called without one or two arguments, print usage message
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
 	print_usage
 fi
