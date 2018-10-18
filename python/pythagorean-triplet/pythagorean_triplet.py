@@ -22,9 +22,9 @@ def triplets_with_sum(sum_of_triplet):
     """ Calculate the set of Pythagorean triplets found with the given sum """
     result = set()
     for i in range(1, sum_of_triplet // 3 + 1):
-        for j in range(1, (sum_of_triplet - i) // 2 + 1):
+        for j in range(i, (sum_of_triplet - i) // 2 + 1):
             if i ** 2 + j ** 2 == (sum_of_triplet - i - j) ** 2:
-                result.add(tuple(sorted([i, j, sum_of_triplet - i - j])))
+                result.add((i, j, sum_of_triplet - i - j))
     return result
 
 
@@ -40,6 +40,6 @@ def print_usage():
 
 
 if __name__ == "__main__":
-    if len(argv) != 2:
+    if len(argv) != 2 or not argv[1].isdigit():
         print_usage()
     main(int(argv[1]))
