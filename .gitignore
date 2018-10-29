@@ -1,6 +1,7 @@
 *.solution.json
 *test*
 */*/README.md
+*.exercism*
 
 # Created by https://www.gitignore.io/api/vim,data,emacs,eclipse,database,compressed,jetbrains+iml
 

@@ -5,19 +5,15 @@ set -eEuo pipefail
 trap 'echo "Aborting (errexit line $LINENO). Exit code: $?" >&2' ERR
 IFS=$'\n\t'
 
+
 main() {
 	shopt -s nocasematch
-	local alphabet="abcdefghijklmnopqrstuvwxyz"
 
-	for (( i=0; i<${#alphabet}; i++ )); do
-		[[ "$1" != *"${alphabet:i:1}"* ]] && break;
+	for i in {a..z}; do
+		[[ "$1" != *"$i"* ]] && printf '%s\n' "false" && exit
 	done
 
-	if (( "$i" == 26 )); then
-		printf '%s\n' "true"
-	else
-		printf '%s\n' "false"
-	fi
+	printf '%s\n' "true"
 }
 
 print_usage() {
