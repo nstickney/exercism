@@ -26,4 +26,4 @@ if __name__ == "__main__":
     if len(argv) < 3 or not all(i.isdigit() for i in argv[1:]):
         print_usage()
 
-main(int(float(argv[1])), [int(float(i)) for i in argv[2:]])
+    main(int(float(argv[1])), [int(float(i)) for i in argv[2:]])
