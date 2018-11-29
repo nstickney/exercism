@@ -13,10 +13,10 @@ failout() {
 main() {
 	local seq="$*"
 	[[ "$seq" == *[^ACGTacgt]* ]] && failout "Invalid nucleotide detected."
-	seq=${seq//A/U}              # Replace all As with Us
-	seq=${seq//T/A}              # Replace all Ts with As
-	seq=${seq//C/0}              # Replace all Cs with 0s
-	seq=${seq//G/C}              # Replace all Gs with Cs
+	seq=${seq//[Aa]/U}              # Replace all As with Us
+	seq=${seq//[Tt]/A}              # Replace all Ts with As
+	seq=${seq//[Cc]/0}              # Replace all Cs with 0s
+	seq=${seq//[Gg]/C}              # Replace all Gs with Cs
 	printf '%s\n' "${seq//0/G}"  # Replace all 0s with Gs
 }
 
