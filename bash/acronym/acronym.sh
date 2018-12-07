@@ -9,11 +9,9 @@ main() {
 	local acronym=''
 	for ((i=0; i<${#1}; i++)); do
 		local letter="${1:$i:1}"
-		if [[ "$letter" == [a-z] ]]; then
-			if ((i == 0)) || [[ ! "${1:$i-1:1}" == [a-z] ]]; then
-				acronym+="${letter^}"
-			fi
-		fi
+		[[ "$letter" == [a-z] ]] && \
+			[[ "$i" == "0" || "${1:$i-1:1}" != [a-z] ]] && \
+			acronym+="${letter^}"
 	done
 	printf '%s\n' "$acronym"
 }
